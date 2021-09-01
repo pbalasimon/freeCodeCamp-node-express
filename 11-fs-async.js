@@ -1,25 +1,9 @@
-const fs = require('fs');
+const fs = require('fs').promises;
 
-fs.readFile('./folder/first.txt', 'utf-8', (error, result) => {
-    if (error) {
-        console.log(error);
-        return
-    }
-    const first = result;
-    fs.readFile('./folder/second.txt', 'utf-8', (error, result) => {
-        if (error) {
-            console.log(error);
-            return
-        }
-    });
-    const second = result;
-    fs.writeFile('./folder/result-async.txt',
-        `Here is the result: ${first}, ${second}`,
-        (error, result) => {
-            if (error) {
-                console.log(error);
-                return
-            }
-            console.log(result);
-        });
-});
+const start = async () => {
+    const first = await fs.readFile('./folder/first.txt', 'utf-8');
+    const second = await fs.readFile('./folder/second.txt', 'utf-8');
+    console.log(first, second);
+}
+
+start();
